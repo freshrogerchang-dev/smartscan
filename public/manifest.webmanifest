@@ -1,1 +1,20 @@
-{"name":"SmartScan Personal","short_name":"SmartScan","start_url":"/","display":"standalone","background_color":"#f0f7f6","theme_color":"#0e766e","lang":"zh-Hant"}
+{
+  "name": "SmartScan Personal",
+  "short_name": "SmartScan",
+  "description": "個人文件掃描、OCR 與名片電子化",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f0f7f6",
+  "theme_color": "#0e766e",
+  "lang": "zh-Hant",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
