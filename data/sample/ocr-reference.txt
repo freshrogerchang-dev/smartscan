@@ -1,0 +1,19 @@
+language: eng
+SMARTSCAN TEST
+Invoice 12345
+Total 100.00
+
+language: chi_tra
+智慧掃描測試
+這是自行製作的測試文件。
+日期：2026 年 10 月 17 日
+
+language: jpn
+スマートスキャン
+これはテストです。
+
+language: card
+測試名片（虛構資料）
+Sample Person
+Example Company
+hello@example.com

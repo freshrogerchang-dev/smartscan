@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-17",
+  "scope": "MVP1-5 bounded desktop smoke; no iPhone certification",
+  "user_storage_choice": "local browser only; no account/upload",
+  "automated_tests": {
+    "passed": 31,
+    "failed": 0
+  },
+  "crop": {
+    "fixture": "self-authored dark background/light sheet PNG",
+    "suggested_percent": {
+      "left": 12,
+      "top": 8.1,
+      "right": 88.2,
+      "bottom": 92
+    },
+    "applied": true,
+    "reversible": true,
+    "perspective": false
+  },
+  "library": {
+    "save": true,
+    "reload_and_open": true,
+    "english_query": "Invoice 12345",
+    "cjk_query": "智慧掃描",
+    "cjk_query_matches_spaced_ocr": true,
+    "stored_original_blobs": true,
+    "native_delete_test": "NOT RUN",
+    "quota_failure_unit_test": true
+  },
+  "pdf": {
+    "manual_cjk_text_layer_independent_extraction": true,
+    "actual_cjk_ocr_two_page_extraction": true,
+    "cjk_layout": "approximate invisible text layout, not exact image coordinates",
+    "existing_pdf_import": false
+  },
+  "ocr": {
+    "english_crop_smoke": true,
+    "cjk_clean_png_smoke": true,
+    "full_16_sample_benchmark": "NOT RUN",
+    "source_scores": "s4-mvp-cjk-scores.json"
+  },
+  "pending": [
+    "iPhone/HEIC/install/contact import",
+    "storage eviction/quota capacity",
+    "full security review",
+    "V1.1-V2 roadmap"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "run_id": "REPLACE_WITH_UNIQUE_RUN_ID",
+  "status": "NOT_RUN",
+  "source": "UNKNOWN",
+  "device": "UNKNOWN",
+  "os": "UNKNOWN",
+  "browser": "UNKNOWN",
+  "ocr_version": "UNKNOWN",
+  "model_paths": [],
+  "font_environment": "UNKNOWN",
+  "cold_warm": "UNKNOWN",
+  "timeout_ms": null,
+  "results": [
+    {
+      "id": "REPLACE_WITH_MANIFEST_ID",
+      "status": "NOT_RUN",
+      "init_ms": null,
+      "recognize_ms": null,
+      "total_ms": null,
+      "error": null,
+      "fields_before_edit": null,
+      "fields_after_edit": null
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+# Preserve deployed asset bytes, including recorded vendor/font hashes.
+public/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Vendored upstream sources retain their original formatting and hashes.
+public/vendor/*.js -whitespace
+public/fonts/OFL.txt -whitespace

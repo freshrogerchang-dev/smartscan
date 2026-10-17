@@ -1,0 +1,126 @@
+{
+  "checked_at": "2026-10-17T03:00:29.986Z",
+  "scope": "script GET for SRI; worker/core/model HEAD only; no browser or OCR validation",
+  "assets": [
+    {
+      "kind": "script",
+      "url": "https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js",
+      "method": "GET",
+      "status": 200,
+      "ok": true,
+      "final_url": "https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js",
+      "content_type": "application/javascript; charset=utf-8",
+      "content_length_header": "10200",
+      "downloaded_bytes": 66695,
+      "integrity": "sha384-GJqSu7vueQ9qN0E9yLPb3Wtpd7OrgK8KmYzC8T1IysG1bcvxvIO4qtYR/D3A991F"
+    },
+    {
+      "kind": "script",
+      "url": "https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js",
+      "method": "GET",
+      "status": 200,
+      "ok": true,
+      "final_url": "https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js",
+      "content_type": "application/javascript; charset=utf-8",
+      "content_length_header": "114639",
+      "downloaded_bytes": 365730,
+      "integrity": "sha384-en/ztfPSRkGfME4KIm05joYXynqzUgbsG5nMrj/xEFAHXkeZfO3yMK8QQ+mP7p1/"
+    },
+    {
+      "kind": "worker",
+      "url": "https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/worker.min.js",
+      "method": "HEAD",
+      "status": 200,
+      "ok": true,
+      "final_url": "https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/worker.min.js",
+      "content_type": "application/javascript; charset=utf-8",
+      "content_length_header": "32780",
+      "downloaded_bytes": 0,
+      "integrity": null
+    },
+    {
+      "kind": "core",
+      "url": "https://cdn.jsdelivr.net/npm/tesseract.js-core@5.1.1/tesseract-core-lstm.wasm.js",
+      "method": "HEAD",
+      "status": 200,
+      "ok": true,
+      "final_url": "https://cdn.jsdelivr.net/npm/tesseract.js-core@5.1.1/tesseract-core-lstm.wasm.js",
+      "content_type": "application/javascript; charset=utf-8",
+      "content_length_header": "1374499",
+      "downloaded_bytes": 0,
+      "integrity": null
+    },
+    {
+      "kind": "core",
+      "url": "https://cdn.jsdelivr.net/npm/tesseract.js-core@5.1.1/tesseract-core-simd-lstm.wasm.js",
+      "method": "HEAD",
+      "status": 200,
+      "ok": true,
+      "final_url": "https://cdn.jsdelivr.net/npm/tesseract.js-core@5.1.1/tesseract-core-simd-lstm.wasm.js",
+      "content_type": "application/javascript; charset=utf-8",
+      "content_length_header": "1374159",
+      "downloaded_bytes": 0,
+      "integrity": null
+    },
+    {
+      "kind": "core",
+      "url": "https://cdn.jsdelivr.net/npm/tesseract.js-core@5.1.1/tesseract-core-lstm.wasm",
+      "method": "HEAD",
+      "status": 200,
+      "ok": true,
+      "final_url": "https://cdn.jsdelivr.net/npm/tesseract.js-core@5.1.1/tesseract-core-lstm.wasm",
+      "content_type": "application/wasm",
+      "content_length_header": "1037091",
+      "downloaded_bytes": 0,
+      "integrity": null
+    },
+    {
+      "kind": "core",
+      "url": "https://cdn.jsdelivr.net/npm/tesseract.js-core@5.1.1/tesseract-core-simd-lstm.wasm",
+      "method": "HEAD",
+      "status": 200,
+      "ok": true,
+      "final_url": "https://cdn.jsdelivr.net/npm/tesseract.js-core@5.1.1/tesseract-core-simd-lstm.wasm",
+      "content_type": "application/wasm",
+      "content_length_header": "1037576",
+      "downloaded_bytes": 0,
+      "integrity": null
+    },
+    {
+      "kind": "model",
+      "url": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_best/e12c65a915945e4c28e237a9b52bc4a8f39a0cec/eng.traineddata",
+      "method": "HEAD",
+      "status": 200,
+      "ok": true,
+      "final_url": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_best/e12c65a915945e4c28e237a9b52bc4a8f39a0cec/eng.traineddata",
+      "content_type": "application/octet-stream",
+      "content_length_header": "15400601",
+      "downloaded_bytes": 0,
+      "integrity": null
+    },
+    {
+      "kind": "model",
+      "url": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_best/e12c65a915945e4c28e237a9b52bc4a8f39a0cec/chi_tra.traineddata",
+      "method": "HEAD",
+      "status": 200,
+      "ok": true,
+      "final_url": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_best/e12c65a915945e4c28e237a9b52bc4a8f39a0cec/chi_tra.traineddata",
+      "content_type": "application/octet-stream",
+      "content_length_header": "12985735",
+      "downloaded_bytes": 0,
+      "integrity": null
+    },
+    {
+      "kind": "model",
+      "url": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_best/e12c65a915945e4c28e237a9b52bc4a8f39a0cec/jpn.traineddata",
+      "method": "HEAD",
+      "status": 200,
+      "ok": true,
+      "final_url": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_best/e12c65a915945e4c28e237a9b52bc4a8f39a0cec/jpn.traineddata",
+      "content_type": "application/octet-stream",
+      "content_length_header": "14330109",
+      "downloaded_bytes": 0,
+      "integrity": null
+    }
+  ]
+}

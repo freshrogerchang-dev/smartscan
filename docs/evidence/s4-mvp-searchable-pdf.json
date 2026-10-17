@@ -1,0 +1,15 @@
+{
+  "source": "self-authored crop fixture + manually verified multilingual text",
+  "not_ocr_quality_evidence": true,
+  "pages": 1,
+  "bytes": 309897,
+  "checks": {
+    "SMARTSCAN TEST": true,
+    "Invoice 12345": true,
+    "智慧掃描測試": true,
+    "合約金額": true,
+    "スマートスキャン": true,
+    "これはテストです。": true
+  },
+  "extracted_text": "SMARTSCAN TEST\nInvoice 12345\nTotal 100.00\n智慧掃描測試 合約金額\nスマートスキャン これはテストです。"
+}

@@ -1,0 +1,6 @@
+{
+  "decoder": "zxing-cpp 2.3.0",
+  "format": "BarcodeFormat.QRCode",
+  "text": "BEGIN:VCARD\r\nVERSION:3.0\r\nFN:更新測試聯絡人\r\nN:;更新測試聯絡人;;;\r\nORG:SmartScan Lab\r\nTEL:+886 900 000 111\r\nEMAIL:V11@example.com\r\nEND:VCARD\r\n",
+  "scope": "self-authored test contact; not a phone import test"
+}

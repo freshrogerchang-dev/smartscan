@@ -1,0 +1,6 @@
+{
+  "source": "self-authored Arial 54px table, 1600x1000 PNG",
+  "ocr": "Item Qty Price\nCoffee 2 100\nTea 1 50\n",
+  "table": "Item\tQty\tPrice\nCoffee\t2\t100\nTea\t1\t50",
+  "scope": "One clean English synthetic table only; merged cells and real photographs not validated."
+}

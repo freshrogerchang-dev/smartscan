@@ -1,0 +1,182 @@
+[
+  {
+    "id": "eng-clean",
+    "language": "eng",
+    "condition": "clean",
+    "image": "eng-clean.svg",
+    "reference_text": "SMARTSCAN TEST\nInvoice 12345\nTotal 100.00",
+    "fields": null,
+    "source": "self-authored-synthetic",
+    "recommended_manual_rotation": 0
+  },
+  {
+    "id": "eng-rotate90",
+    "language": "eng",
+    "condition": "rotate90",
+    "image": "eng-rotate90.svg",
+    "reference_text": "SMARTSCAN TEST\nInvoice 12345\nTotal 100.00",
+    "fields": null,
+    "source": "self-authored-synthetic",
+    "recommended_manual_rotation": 270
+  },
+  {
+    "id": "eng-skew5",
+    "language": "eng",
+    "condition": "skew5",
+    "image": "eng-skew5.svg",
+    "reference_text": "SMARTSCAN TEST\nInvoice 12345\nTotal 100.00",
+    "fields": null,
+    "source": "self-authored-synthetic",
+    "recommended_manual_rotation": 0
+  },
+  {
+    "id": "eng-shadow",
+    "language": "eng",
+    "condition": "shadow",
+    "image": "eng-shadow.svg",
+    "reference_text": "SMARTSCAN TEST\nInvoice 12345\nTotal 100.00",
+    "fields": null,
+    "source": "self-authored-synthetic",
+    "recommended_manual_rotation": 0
+  },
+  {
+    "id": "chi-tra-clean",
+    "language": "chi_tra+eng",
+    "condition": "clean",
+    "image": "chi-tra-clean.svg",
+    "reference_text": "智慧掃描測試\n這是自行製作的測試文件。\n日期：2026 年 10 月 17 日",
+    "fields": null,
+    "source": "self-authored-synthetic",
+    "recommended_manual_rotation": 0
+  },
+  {
+    "id": "chi-tra-rotate90",
+    "language": "chi_tra+eng",
+    "condition": "rotate90",
+    "image": "chi-tra-rotate90.svg",
+    "reference_text": "智慧掃描測試\n這是自行製作的測試文件。\n日期：2026 年 10 月 17 日",
+    "fields": null,
+    "source": "self-authored-synthetic",
+    "recommended_manual_rotation": 270
+  },
+  {
+    "id": "chi-tra-skew5",
+    "language": "chi_tra+eng",
+    "condition": "skew5",
+    "image": "chi-tra-skew5.svg",
+    "reference_text": "智慧掃描測試\n這是自行製作的測試文件。\n日期：2026 年 10 月 17 日",
+    "fields": null,
+    "source": "self-authored-synthetic",
+    "recommended_manual_rotation": 0
+  },
+  {
+    "id": "chi-tra-shadow",
+    "language": "chi_tra+eng",
+    "condition": "shadow",
+    "image": "chi-tra-shadow.svg",
+    "reference_text": "智慧掃描測試\n這是自行製作的測試文件。\n日期：2026 年 10 月 17 日",
+    "fields": null,
+    "source": "self-authored-synthetic",
+    "recommended_manual_rotation": 0
+  },
+  {
+    "id": "jpn-clean",
+    "language": "jpn+eng",
+    "condition": "clean",
+    "image": "jpn-clean.svg",
+    "reference_text": "スマートスキャン\nこれはテストです。\n合計 100 円",
+    "fields": null,
+    "source": "self-authored-synthetic",
+    "recommended_manual_rotation": 0
+  },
+  {
+    "id": "jpn-rotate90",
+    "language": "jpn+eng",
+    "condition": "rotate90",
+    "image": "jpn-rotate90.svg",
+    "reference_text": "スマートスキャン\nこれはテストです。\n合計 100 円",
+    "fields": null,
+    "source": "self-authored-synthetic",
+    "recommended_manual_rotation": 270
+  },
+  {
+    "id": "jpn-skew5",
+    "language": "jpn+eng",
+    "condition": "skew5",
+    "image": "jpn-skew5.svg",
+    "reference_text": "スマートスキャン\nこれはテストです。\n合計 100 円",
+    "fields": null,
+    "source": "self-authored-synthetic",
+    "recommended_manual_rotation": 0
+  },
+  {
+    "id": "jpn-shadow",
+    "language": "jpn+eng",
+    "condition": "shadow",
+    "image": "jpn-shadow.svg",
+    "reference_text": "スマートスキャン\nこれはテストです。\n合計 100 円",
+    "fields": null,
+    "source": "self-authored-synthetic",
+    "recommended_manual_rotation": 0
+  },
+  {
+    "id": "card-clean",
+    "language": "eng",
+    "condition": "clean",
+    "image": "card-clean.svg",
+    "reference_text": "Sample Person\nExample Company\n+1 202-555-0100\nhello@example.com",
+    "fields": {
+      "name": "Sample Person",
+      "company": "Example Company",
+      "phone": "+1 202-555-0100",
+      "email": "hello@example.com"
+    },
+    "source": "self-authored-synthetic",
+    "recommended_manual_rotation": 0
+  },
+  {
+    "id": "card-rotate90",
+    "language": "eng",
+    "condition": "rotate90",
+    "image": "card-rotate90.svg",
+    "reference_text": "Sample Person\nExample Company\n+1 202-555-0100\nhello@example.com",
+    "fields": {
+      "name": "Sample Person",
+      "company": "Example Company",
+      "phone": "+1 202-555-0100",
+      "email": "hello@example.com"
+    },
+    "source": "self-authored-synthetic",
+    "recommended_manual_rotation": 270
+  },
+  {
+    "id": "card-skew5",
+    "language": "eng",
+    "condition": "skew5",
+    "image": "card-skew5.svg",
+    "reference_text": "Sample Person\nExample Company\n+1 202-555-0100\nhello@example.com",
+    "fields": {
+      "name": "Sample Person",
+      "company": "Example Company",
+      "phone": "+1 202-555-0100",
+      "email": "hello@example.com"
+    },
+    "source": "self-authored-synthetic",
+    "recommended_manual_rotation": 0
+  },
+  {
+    "id": "card-shadow",
+    "language": "eng",
+    "condition": "shadow",
+    "image": "card-shadow.svg",
+    "reference_text": "Sample Person\nExample Company\n+1 202-555-0100\nhello@example.com",
+    "fields": {
+      "name": "Sample Person",
+      "company": "Example Company",
+      "phone": "+1 202-555-0100",
+      "email": "hello@example.com"
+    },
+    "source": "self-authored-synthetic",
+    "recommended_manual_rotation": 0
+  }
+]

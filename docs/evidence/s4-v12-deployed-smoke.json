@@ -1,0 +1,14 @@
+{
+  "url": "https://smartscan-personal.freshrogerchang.workers.dev/",
+  "table": "Item\tQty\tPrice\nCoffee\t2\t100\nTea\t1\t50",
+  "viewport": {
+    "bodyWidth": 1265,
+    "width": 1280
+  },
+  "console": [],
+  "scope": "Deployed table editor smoke with self-authored pasted values; actual OCR table verified separately on localhost. No AI model success claimed.",
+  "mobile": {
+    "bodyWidth": 375,
+    "width": 390
+  }
+}

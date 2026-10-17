@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1600" viewBox="0 0 1600 1600">
+<defs><linearGradient id="shadow"><stop stop-color="black" stop-opacity="0.55"/><stop offset="1" stop-color="black" stop-opacity="0"/></linearGradient></defs>
+<rect width="1600" height="1600" fill="white"/>
+<g transform="rotate(0 800 800)" font-family="Arial, 'Microsoft JhengHei', 'Yu Gothic', sans-serif" font-size="44" fill="black"><text x="260" y="390">智慧掃描測試</text>
+<text x="260" y="475">這是自行製作的測試文件。</text>
+<text x="260" y="560">日期：2026 年 10 月 17 日</text></g>
+<rect width="1600" height="1600" fill="url(#shadow)"/>
+</svg>

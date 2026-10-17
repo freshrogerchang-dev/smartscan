@@ -1,0 +1,183 @@
+{
+  "url": "https://smartscan-personal.freshrogerchang.workers.dev",
+  "version_id": "1640e782-eb9a-4a49-856f-6e152332f2e3",
+  "app_version": "0.6.0",
+  "checked_at": "2026-10-17T13:47:10.064Z",
+  "assets": [
+    {
+      "path": "/advanced-tools.js",
+      "status": 200,
+      "type": "text/javascript",
+      "sha256": "5c493b14b3d3d8f1b877d2a02ce34cd366c66beb114410f3ff4a2dbbc16b4c42",
+      "matches_local": true
+    },
+    {
+      "path": "/advanced.js",
+      "status": 200,
+      "type": "text/javascript",
+      "sha256": "bfb880be389a4a9fa0eac528b9bcd2e6de75dd3016572a3aa1699424821cbcfe",
+      "matches_local": true
+    },
+    {
+      "path": "/app.js",
+      "status": 200,
+      "type": "text/javascript",
+      "sha256": "d4418b914d41f28baff7c5350ab65164d7e4b09aa37345a7844fb6c8023bfac2",
+      "matches_local": true
+    },
+    {
+      "path": "/apple-touch-icon.png",
+      "status": 200,
+      "type": "image/png",
+      "sha256": "22c1ca1039d0da7ee0f3b9a2b04bc06e2bdaf95ff0d41dd4b86580b5e7143fd8",
+      "matches_local": true
+    },
+    {
+      "path": "/document-tools.js",
+      "status": 200,
+      "type": "text/javascript",
+      "sha256": "0cfda0c3bccc83da81254c2c1491b57e372805c428868db86ce0d77c8bb9e03c",
+      "matches_local": true
+    },
+    {
+      "path": "/document-workflow.js",
+      "status": 200,
+      "type": "text/javascript",
+      "sha256": "faadba09a7b697c130abe6ff0b995a72be0e2a4a6384e3024dcef672018183eb",
+      "matches_local": true
+    },
+    {
+      "path": "/fonts/OFL.txt",
+      "status": 200,
+      "type": "text/plain",
+      "sha256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9",
+      "matches_local": true
+    },
+    {
+      "path": "/fonts/SOURCE.md",
+      "status": 200,
+      "type": "text/markdown",
+      "sha256": "1317c785940fee6f309adba36708662f5c03fb01d6e861a2b4ae0aec5df3af45",
+      "matches_local": true
+    },
+    {
+      "path": "/fonts/SmartScanCJK.ttf",
+      "status": 200,
+      "type": "font/ttf",
+      "sha256": "864727d210d54f2537bbe23b3a839436c3992af72de9322af5270897246bd44f",
+      "matches_local": true
+    },
+    {
+      "path": "/icon-192.png",
+      "status": 200,
+      "type": "image/png",
+      "sha256": "c9bb14bc12bcae451961b09688a65c79e9d97df3b1aaafdc1898b51428db5b35",
+      "matches_local": true
+    },
+    {
+      "path": "/icon-512.png",
+      "status": 200,
+      "type": "image/png",
+      "sha256": "c11ed4957101347c562e0970654c2660a656ac2122d44d4bf4b2ff2e8ab5dd83",
+      "matches_local": true
+    },
+    {
+      "path": "/icon.svg",
+      "status": 200,
+      "type": "image/svg+xml",
+      "sha256": "de0e12a0847eeb15c35e9661aa3774aab7ca30d2f16446def8450f4331d63987",
+      "matches_local": true
+    },
+    {
+      "path": "/index.html",
+      "status": 200,
+      "type": "text/html",
+      "sha256": "3046a35773f94287bc3962f5781ba1d0c7ccfd00da721d584e17903974a34d97",
+      "matches_local": true
+    },
+    {
+      "path": "/library.js",
+      "status": 200,
+      "type": "text/javascript",
+      "sha256": "2d2fb14095cfa0609ec5dc049b0e5bad9e5a9d1b51938172b9a74c2a7a43704e",
+      "matches_local": true
+    },
+    {
+      "path": "/manifest.webmanifest",
+      "status": 200,
+      "type": "application/manifest+json",
+      "sha256": "2c4dc1f4f0afc914d1cc6690e270d61a4a7ec26fea12b524ba7f256cbb72f010",
+      "matches_local": true
+    },
+    {
+      "path": "/productivity-tools.js",
+      "status": 200,
+      "type": "text/javascript",
+      "sha256": "62ba0812c65c49136af20585322a1c42623c1b4dd705d92ae29e5cb58d08483e",
+      "matches_local": true
+    },
+    {
+      "path": "/productivity.js",
+      "status": 200,
+      "type": "text/javascript",
+      "sha256": "06dc6cde353100e39ee21b25580f39d943a42224e7f220eb59de542c0b6e0d1e",
+      "matches_local": true
+    },
+    {
+      "path": "/runtime-config.js",
+      "status": 200,
+      "type": "text/javascript",
+      "sha256": "054ed1c4d12155af607eab422b7d2d7a4c38781a6b2e3eacb29aa6eaddd3c1fe",
+      "matches_local": true
+    },
+    {
+      "path": "/styles.css",
+      "status": 200,
+      "type": "text/css",
+      "sha256": "038a9d1886de378d92be315d828e29f0e57667a7d45db6a2affc16e54534894f",
+      "matches_local": true
+    },
+    {
+      "path": "/sw.js",
+      "status": 200,
+      "type": "text/javascript",
+      "sha256": "8253f145fe18b8990a23087054efaaba38123c8b907b8ea58a0d8b369317d0ad",
+      "matches_local": true
+    },
+    {
+      "path": "/vendor/SOURCE.md",
+      "status": 200,
+      "type": "text/markdown",
+      "sha256": "e8a9eabf5c860a64bbd6fb9386ec34aa876ca9d8f0eebf7cfe05558940b9d06c",
+      "matches_local": true
+    },
+    {
+      "path": "/vendor/ZXING-LIBRARY-LICENSE",
+      "status": 200,
+      "type": null,
+      "sha256": "849b3ff4527ff587eecc78736b5685bbba7a44b071f3b944da914e832292f6c0",
+      "matches_local": true
+    },
+    {
+      "path": "/vendor/ZXING-LICENSE",
+      "status": 200,
+      "type": null,
+      "sha256": "4c26c3077daa7ce4d56ad91f279fafc395bf33c3a0f1ba9ab8cf511bad148ea5",
+      "matches_local": true
+    },
+    {
+      "path": "/vendor/qrcodegen-1.8.0.js",
+      "status": 200,
+      "type": "text/javascript",
+      "sha256": "6a1116192ed1dd67fa1bf31e77f5817103d71c23bbac24c382e698b7668bdd01",
+      "matches_local": true
+    },
+    {
+      "path": "/vendor/zxing-browser-0.1.5.js",
+      "status": 200,
+      "type": "text/javascript",
+      "sha256": "b5ad3df920738ca7adcb74508d7e6b6a5b9024993fb9a0c702da1ad8964eca07",
+      "matches_local": true
+    }
+  ]
+}

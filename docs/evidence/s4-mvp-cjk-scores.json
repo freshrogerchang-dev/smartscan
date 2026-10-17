@@ -1,0 +1,33 @@
+{
+  "scope": "two clean self-authored PNGs only; not full 16-sample benchmark",
+  "rows": [
+    {
+      "id": "chi-tra-clean",
+      "actual_language_setting": "chi_tra+eng+jpn",
+      "strict": {
+        "edits": 15,
+        "reference_chars": 39,
+        "cer": 0.38461538461538464
+      },
+      "compact": {
+        "edits": 1,
+        "reference_chars": 32,
+        "cer": 0.03125
+      }
+    },
+    {
+      "id": "jpn-clean",
+      "actual_language_setting": "chi_tra+eng+jpn",
+      "strict": {
+        "edits": 12,
+        "reference_chars": 27,
+        "cer": 0.4444444444444444
+      },
+      "compact": {
+        "edits": 1,
+        "reference_chars": 23,
+        "cer": 0.043478260869565216
+      }
+    }
+  ]
+}

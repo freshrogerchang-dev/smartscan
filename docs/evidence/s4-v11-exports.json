@@ -1,0 +1,50 @@
+{
+  "batch": {
+    "profile": "small",
+    "pages": [
+      {
+        "page": 1,
+        "status": "completed",
+        "name": "page-01.jpg",
+        "width": 1200,
+        "height": 1200,
+        "inputBytes": 131924,
+        "outputBytes": 15703
+      },
+      {
+        "page": 2,
+        "status": "completed",
+        "name": "page-02.jpg",
+        "width": 1200,
+        "height": 1200,
+        "inputBytes": 142562,
+        "outputBytes": 19108
+      }
+    ]
+  },
+  "zip_crc_valid": true,
+  "zip_size": 35544,
+  "pdf_pages": 2,
+  "pdf_image_sizes": [
+    [
+      [
+        1200,
+        1200
+      ],
+      [
+        1200,
+        1200
+      ]
+    ],
+    [
+      [
+        1200,
+        1200
+      ],
+      [
+        1200,
+        1200
+      ]
+    ]
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-17",
+  "environment": "IAB; browser engine/OS version NOT CAPTURED",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "scope": "S4 integration smoke; not full benchmark or iPhone validation",
+  "tests": {
+    "automated": {
+      "passed": 15,
+      "failed": 0
+    },
+    "imports": [
+      "self-authored eng-clean.svg",
+      "self-authored chi-tra-clean.svg",
+      "1600px PNG raster of eng-clean.svg"
+    ],
+    "ocr": {
+      "language": "eng",
+      "sample": "eng-clean",
+      "expected": "SMARTSCAN TEST\nInvoice 12345\nTotal 100.00",
+      "observed": "SMARTSCAN TEST\nInvoice 12345\nTotal 100.00\n",
+      "matches_after_trim": true,
+      "timing_ms": null
+    },
+    "pdf": {
+      "multi_page_download": true,
+      "pages": 2,
+      "format": "A4",
+      "render_visual_review": "PASS; Chinese page first, clockwise-rotated English page second"
+    },
+    "vcard": {
+      "download": true,
+      "utf8": true,
+      "n_field": true,
+      "crlf": true,
+      "contact_import": "NOT RUN"
+    },
+    "app_ui": {
+      "tab_click": true,
+      "keyboard_arrow_navigation": true,
+      "contact_preview": true,
+      "help_dialog": true,
+      "download_after_redesign": true
+    },
+    "console_warn_error_observed": [],
+    "network_trace": "NOT CAPTURED",
+    "iphone": "NOT RUN",
+    "full_16_sample_baseline": "NOT RUN"
+  }
+}

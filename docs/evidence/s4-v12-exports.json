@@ -1,0 +1,21 @@
+{
+  "xlsx_reader": "openpyxl",
+  "rows": [
+    [
+      "品項",
+      "金額"
+    ],
+    [
+      "咖啡",
+      "120"
+    ],
+    [
+      "=1+1",
+      "200"
+    ]
+  ],
+  "formula_stored_as": "string",
+  "csv_formula_prefix_neutralized": true,
+  "ics_utc_start": "20261020T060000Z",
+  "ics_utc_end": "20261020T073000Z"
+}
