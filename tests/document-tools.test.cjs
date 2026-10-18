@@ -38,3 +38,9 @@ test('crop refuses featureless or ambiguous full-frame images',()=>{
  }
  assert.equal(tools.detectBounds({data:[],width:100,height:80}),null);
 });
+
+test('automatic crop accepts a fully visible contrasted sheet, refuses low contrast or clipped paper',()=>{
+ const sample=(bg,paper,left=20)=>{const width=100,height=80,data=new Uint8ClampedArray(width*height*4);for(let y=0;y<height;y++)for(let x=0;x<width;x++){const i=(y*width+x)*4,v=x>=left&&x<80&&y>=15&&y<65?paper:bg;data[i]=data[i+1]=data[i+2]=v;data[i+3]=255;}return{data,width,height};};
+ const bounds=tools.autoCropBounds(sample(60,245));assert.ok(bounds);assert.ok(bounds.x<=.2&&bounds.x+bounds.width>=.8);
+ assert.equal(tools.autoCropBounds(sample(225,245)),null);assert.equal(tools.autoCropBounds(sample(60,245,0)),null);
+});

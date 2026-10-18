@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "browser": "154.0.8037.57",
+  "fixture": "synthetic light document on dark background; not a physical camera test",
+  "checks": [
+    "camera-auto-applies-crop-through-all-wrappers",
+    "source-file-bytes-preserved",
+    "cropped-canvas-dimensions",
+    "manual-full-image-restore",
+    "checkbox-disable",
+    "album-import-unchanged",
+    "ambiguous-white-image-preserved"
+  ],
+  "pageErrors": []
+}

@@ -32,7 +32,7 @@ function render() {
     if((page.crop||page.perspective) && typeof updatePageThumbnail === "function")updatePageThumbnail(image,page);
     image.style.transform = `rotate(${page.rotation}deg)`;
     image.alt = `第 ${i + 1} 頁預覽`;
-    cap.textContent = `第 ${i + 1} 頁`;
+    cap.textContent = `第 ${i + 1} 頁${page.autoCropState === "applied" ? " · 已自動裁切，可調整" : page.autoCropState === "uncertain" ? " · 未確認邊界，保留原圖" : ""}`;
     fig.append(image, cap);
     const actions = [
       ["前移", () => { [pages[i - 1], pages[i]] = [pages[i], pages[i - 1]]; }, i === 0],
@@ -76,7 +76,7 @@ const load = url => new Promise((resolve, reject) => {
   image.onerror = () => reject(Error("無法解碼圖片；HEIC 請改用支援的 Safari，或先轉為 JPEG／PNG"));
   image.src = url;
 });
-async function add(files) {
+async function add(files, options = {}) {
   if (busy) return;
   try {if(pages.length && $("text").value.trim() && typeof syncEditor === "function")syncEditor();}
   catch(error){msg(error.message);return;}
@@ -96,7 +96,12 @@ async function add(files) {
         msg(`檢查圖片：${file.name}`);
         const image = await load(url);
         if (!(image.naturalWidth||image.width) || !(image.naturalHeight||image.height) || (image.naturalWidth||image.width) * (image.naturalHeight||image.height) > config.maxImagePixels) throw Error("圖片尺寸無效或超過 32 百萬像素，請先縮小圖片");
-        pages.push({ file, url, rotation: 0, crop: null, text: "", words: [] });
+        let crop=null,autoCropState=null;
+        if(options.autoCrop && typeof automaticCameraCrop === "function") {
+          msg("偵測文件邊界…");
+          try {crop=automaticCameraCrop(image);autoCropState=crop?"applied":"uncertain";}catch{autoCropState="uncertain";}
+        }
+        pages.push({ file, url, rotation: 0, crop, autoCropState, text: "", words: [] });
         if(typeof markDirty === "function")markDirty();
       } catch (error) {
         if (url) URL.revokeObjectURL(url);
@@ -115,7 +120,7 @@ async function add(files) {
 for (const id of ["camera", "upload"]) $(id).onchange = async event => {
   const files = Array.from(event.target.files);
   event.target.value = "";
-  await add(files);
+  await add(files, {autoCrop:id === "camera" && $("camera-auto-crop")?.checked !== false});
 };
 $("clear").onclick = () => {
   if (busy) return;
