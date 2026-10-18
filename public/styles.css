@@ -17,3 +17,5 @@
 #backup-message,#draft-status{overflow-wrap:anywhere}
 
 #draft-summary{display:block;font-size:11px;font-weight:400;line-height:1.8;margin-top:5px;color:#63745a;overflow-wrap:anywhere}
+
+.review-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}.review-columns>*{min-width:0}.review-columns textarea{width:100%;min-height:180px}#review-image,#redact-image{display:block;width:100%;height:auto;max-height:65vh;object-fit:contain;background:#eee}#redact-image{touch-action:none}.word-chip{margin:3px;padding:7px;min-height:36px;overflow-wrap:anywhere}.redact-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.feature-card input[type=file]{max-width:100%;width:100%}.feature-card canvas:where([width="300"]){min-height:1px}@media(max-width:600px){.review-columns{grid-template-columns:1fr}}

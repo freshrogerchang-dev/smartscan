@@ -1,7 +1,7 @@
 "use strict";
 (function(){
  const helper=window.SmartScanRecoveryTools,tabId='draft-'+crypto.randomUUID();
- const uiIds=['document-name','document-category','document-tags','name-template','searchable-pdf','language','mode','text','name','company','phone','email','receipt-date','receipt-currency','receipt-amount','translation-original','translation-result','translation-source-language','translation-target-language','event-title','event-zone','event-start','event-end','event-location','event-description','event-all-day','table-source','table-page','table-mode','table-input','ai-question','ai-result','ai-source','ai-language','vision-result','vision-mode','vision-page','export-profile'];
+ const uiIds=['claim-store','claim-tax','claim-payment','claim-reference','claim-note','claim-status','document-name','document-category','document-tags','name-template','searchable-pdf','language','mode','text','name','company','phone','email','receipt-date','receipt-currency','receipt-amount','translation-original','translation-result','translation-source-language','translation-target-language','event-title','event-zone','event-start','event-end','event-location','event-description','event-all-day','table-source','table-page','table-mode','table-input','ai-question','ai-result','ai-source','ai-language','vision-result','vision-mode','vision-page','export-profile'];
  let ready=false,timer=null,saving=Promise.resolve(),lastSignature='',recoveryItems=[],pendingBackup=null,restoring=false,failed=false;
  const note=text=>{$('draft-status').textContent=text;$('draft-summary').textContent=text;};
  function uiSnapshot(){return Object.fromEntries(uiIds.filter(id=>$(id)).map(id=>[id,$(id).type==='checkbox'?$(id).checked:$(id).value]));}

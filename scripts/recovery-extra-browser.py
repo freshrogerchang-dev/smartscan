@@ -1,6 +1,6 @@
 from playwright.sync_api import sync_playwright
 import json
-URL='http://127.0.0.1:4174'
+URL='http://127.0.0.1:4175'
 with sync_playwright() as p:
  b=p.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
  c=b.new_context();c.route('https://**/*',lambda r:r.abort())

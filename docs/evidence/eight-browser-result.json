@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "browser": "154.0.8037.57",
+  "checks": [
+    "real-PDF-import-two-pages",
+    "PDF-selected-order-and-split-ZIP",
+    "quality-report",
+    "OCR-fixture-comparison-and-correction",
+    "receipt-state-persistence-and-attachment-ZIP",
+    "exact-duplicate-decline",
+    "burned-black-pixels",
+    "hidden-OCR-cleared",
+    "exported-PDF-no-secret-text",
+    "saved-original-preserved",
+    "invalid-PDF-preserves-existing-pages",
+    "duplicate-document-save-decline",
+    "selected-PDF-order-re-rendered"
+  ],
+  "pageErrors": []
+}
