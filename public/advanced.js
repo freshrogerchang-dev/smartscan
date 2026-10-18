@@ -2,14 +2,15 @@
 const advanced=window.SmartScanAdvanced;
 let tableRows=[],barcodeResults=[],advancedController=null;
 const advancedIds=["event-title","event-zone","event-start","event-end","event-location","event-description","table-source","ai-question","ai-result","ai-source","vision-result"];
-function advancedSnapshot(){return {values:Object.fromEntries(advancedIds.map(id=>[id,$(id).value])),allDay:$("event-all-day").checked,tableRows,barcodeResults,aiLanguage:$("ai-language").value,visionMode:$("vision-mode").value};}
+function advancedSnapshot(){return {values:Object.fromEntries(advancedIds.map(id=>[id,$(id).value])),allDay:$("event-all-day").checked,tableRows,barcodeResults,aiLanguage:$("ai-language").value,visionMode:$("vision-mode").value,cloud:window.SmartScanCloudAI?.snapshot()};}
 function resetAdvanced(){
+  window.SmartScanCloudAI?.reset();
   for(const id of advancedIds)$(id).value="";$("event-zone").value="Asia/Taipei";$("event-all-day").checked=false;updateEventInputs();
   tableRows=[];barcodeResults=[];$("table-preview").replaceChildren();$("barcode-results").replaceChildren();$("event-candidates").replaceChildren();$("vision-preview").hidden=true;
   for(const id of ["event-message","table-message","barcode-message","ai-message","vision-message"])$(id).textContent="";
 }
 function restoreAdvanced(record){
-  resetAdvanced();const saved=record.advanced;if(!saved)return;
+  resetAdvanced();const saved=record.advanced;if(!saved)return;window.SmartScanCloudAI?.restore(saved.cloud);
   for(const id of advancedIds)$(id).value=saved.values?.[id]||"";
   $("event-zone").value=saved.values?.["event-zone"]||"Asia/Taipei";$("event-all-day").checked=!!saved.allDay;updateEventInputs();
   tableRows=saved.tableRows||[];barcodeResults=saved.barcodeResults||[];$("ai-language").value=saved.aiLanguage||"zh-Hant";$("vision-mode").value=saved.visionMode||"handwriting";renderTable();renderBarcodes();
@@ -76,12 +77,14 @@ $("barcode-detect").onclick=async()=>{
   lock(true);const found=[],errors=[];
   try{for(let i=0;i<pages.length;i++){
     $("barcode-message").textContent=`正在辨識 ${i+1}/${pages.length}`;
+    setWorkProgress(i/pages.length*100,"辨識 QR／條碼",`第 ${i+1} / ${pages.length} 頁`);
     try{
       const canvas=await pageCanvas(pages[i]);let codes=[];
       if(window.BarcodeDetector){try{codes=await new window.BarcodeDetector().detect(canvas);}catch(error){/* Native support varies; use the bundled decoder. */}}
       if(codes.length)found.push(...codes.map(code=>({page:i+1,format:code.format,text:code.rawValue})));
       else{await loadBarcodeReader();try{const result=await decodeBarcodeCanvas(canvas);found.push({page:i+1,format:window.ZXingBrowser.BarcodeFormat[result.getBarcodeFormat()]||String(result.getBarcodeFormat()),text:result.getText()});}catch(error){if(!/not.?found|No MultiFormat Readers/i.test(error.name+" "+error.message))throw error;}}
     }catch(error){errors.push(`第 ${i+1} 頁：${error.message}`);}
+    setWorkProgress((i+1)/pages.length*100,"辨識 QR／條碼",`${i+1} / ${pages.length} 頁已檢查，找到 ${found.length} 個碼`);
   }
   barcodeResults=found;renderBarcodes();markDirty();$("barcode-message").textContent=`找到 ${found.length} 個碼。`+(errors.length?"處理問題："+errors.join("；"):"未辨識頁可嘗試裁切、旋轉或提高對比；不代表一定沒有碼。");
   }finally{lock(false);updateDocumentControls();}
@@ -95,7 +98,7 @@ async function runLocalModel({image=false,prompt,finish,statusId,language="en"})
   const timeout=setTimeout(()=>advancedController?.abort(),180000);lock(true);$("advanced-progress").hidden=false;$("advanced-cancel").disabled=false;
   const progress=text=>{$(statusId).textContent=text;$("advanced-message").textContent=text;};
   try{
-    const options=advanced.modelOptions(image);progress("檢查裝置上的模型支援…");
+    const options=advanced.modelOptions(image);progress("檢查裝置上的模型支援…");setWorkProgress(null,"檢查本機 AI","正在確認這個裝置是否有可用模型。");
     if(await window.LanguageModel.availability(options)==="unavailable")throw Error(image?"這個裝置沒有可用的影像模型":"這個裝置沒有可用的文字模型");
     progress("準備本機模型…首次可能下載大型模型，可按取消。");
     let translateIn=async text=>text,translateOut=async text=>text;
@@ -106,12 +109,13 @@ async function runLocalModel({image=false,prompt,finish,statusId,language="en"})
       requests.push(window.Translator.create({sourceLanguage:language,targetLanguage:"en",signal}).then(model=>translatorIn=keep(model)));
       requests.push(window.Translator.create({sourceLanguage:"en",targetLanguage:language,signal}).then(model=>translatorOut=keep(model)));
     }
-    requests.push(window.LanguageModel.create({...options,signal,monitor(m){m.addEventListener("downloadprogress",e=>progress(`模型下載 ${Math.round(e.loaded*100)}%`));}}).then(model=>session=keep(model)));
+    requests.push(window.LanguageModel.create({...options,signal,monitor(m){m.addEventListener("downloadprogress",e=>{progress(`模型下載 ${Math.round(e.loaded*100)}%`);setWorkProgress(e.loaded*100,"下載 AI 模型","這是模型下載進度，尚未開始推論。");});}}).then(model=>session=keep(model)));
     await Promise.all(requests);
     if(language!=="en"){
       translateIn=text=>translatorIn.translate(text,{signal});translateOut=text=>translatorOut.translate(text,{signal});
     }
     progress("本機推論中…請保留頁面開啟。原有草稿在成功前保留。");
+    setWorkProgress(null,image?"辨識影像內容":"閱讀文件內容","模型未提供可量測的推論百分比，請稍候；可取消。");
     const input=await prompt(translateIn),response=await session.prompt(input,{signal});
     if(signal.aborted)throw Error("已取消");const result=await translateOut(response);if(signal.aborted)throw Error("已取消");
     finish(result);markDirty();progress("已產生模型草稿，請對照來源核對；不是經驗證的事實或辨識正確率保證。");

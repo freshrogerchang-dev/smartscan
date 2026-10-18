@@ -1,0 +1,118 @@
+[
+  {
+    "path": "/manifest.webmanifest",
+    "sha256": "2d92c9ad656fab1349bbae738de349e0132d6fa2a9577213ece75895f1431fbd"
+  },
+  {
+    "path": "/icon.svg",
+    "sha256": "de0e12a0847eeb15c35e9661aa3774aab7ca30d2f16446def8450f4331d63987"
+  },
+  {
+    "path": "/icon-512.png",
+    "sha256": "c11ed4957101347c562e0970654c2660a656ac2122d44d4bf4b2ff2e8ab5dd83"
+  },
+  {
+    "path": "/icon-192.png",
+    "sha256": "c9bb14bc12bcae451961b09688a65c79e9d97df3b1aaafdc1898b51428db5b35"
+  },
+  {
+    "path": "/sw.js",
+    "sha256": "99193f694b5d4ac7181e2222264918c06427d7685b7011d962563dba2eedf784"
+  },
+  {
+    "path": "/vendor/qrcodegen-1.8.0.js",
+    "sha256": "6a1116192ed1dd67fa1bf31e77f5817103d71c23bbac24c382e698b7668bdd01"
+  },
+  {
+    "path": "/advanced-tools.js",
+    "sha256": "5c493b14b3d3d8f1b877d2a02ce34cd366c66beb114410f3ff4a2dbbc16b4c42"
+  },
+  {
+    "path": "/cloud-ai.js",
+    "sha256": "df77fd9e30275837d154a589f65f9f31210e6d3a7789e1fe3546a17633373b58"
+  },
+  {
+    "path": "/advanced.js",
+    "sha256": "828aa22f3c7838a7959f1c33a98fbcf649a6526fa7761c4760e3055e9b8850f1"
+  },
+  {
+    "path": "/vendor/zxing-browser-0.1.5.js",
+    "sha256": "b5ad3df920738ca7adcb74508d7e6b6a5b9024993fb9a0c702da1ad8964eca07"
+  },
+  {
+    "path": "/pdf-share.js",
+    "sha256": "a163753afb1ef686b63c2ef0a4c63d6377550fdef58c7393ce3de42447b0f5ae"
+  },
+  {
+    "path": "/productivity.js",
+    "sha256": "6b76b044afd459cc388dfac927445558e80b0111d98e06abf93c52464cb2d574"
+  },
+  {
+    "path": "/productivity-tools.js",
+    "sha256": "62ba0812c65c49136af20585322a1c42623c1b4dd705d92ae29e5cb58d08483e"
+  },
+  {
+    "path": "/document-workflow.js",
+    "sha256": "d4e1979e13bfe5c43b9566ddb757d3f399f77a824f6c24916769ad5f577cdf79"
+  },
+  {
+    "path": "/fonts/SmartScanCJK.ttf",
+    "sha256": "864727d210d54f2537bbe23b3a839436c3992af72de9322af5270897246bd44f"
+  },
+  {
+    "path": "/library.js",
+    "sha256": "2d2fb14095cfa0609ec5dc049b0e5bad9e5a9d1b51938172b9a74c2a7a43704e"
+  },
+  {
+    "path": "/document-tools.js",
+    "sha256": "816c1f29ce0555db6b96b7ffc5d9ad6d77e5afdff5cbd6a33e774ac190f7ddc1"
+  },
+  {
+    "path": "/drive-sync.js",
+    "sha256": "04f0494aac84332020ade9b3aef34d180bd931a9154256e4a84d74bcdd374bc5"
+  },
+  {
+    "path": "/drive-tools.js",
+    "sha256": "ca0be05a00f712c4509849b542af320704b61dd21520647963f4a2f87169eae6"
+  },
+  {
+    "path": "/pro.js",
+    "sha256": "c406f1d14f5f308fd8ceda016e95251c8f9f867bf59e563b6c37b972a35a8b0f"
+  },
+  {
+    "path": "/pro-tools.js",
+    "sha256": "b2339e1fd1554047cbe7c178fcb0a5e58ca804ffb9dadab0433ca1295a6e8139"
+  },
+  {
+    "path": "/progress.js",
+    "sha256": "77c8d99284fa90bc9e50c9ed736a926f19ff86fef632140bce772ca85f20e7a9"
+  },
+  {
+    "path": "/sketch-scene.svg",
+    "sha256": "ec24d779ea71f58b110167dfe7e78cddbb3b78afeb9d652ae012ed1dbe099283"
+  },
+  {
+    "path": "/sketch.css",
+    "sha256": "fe421987fcb439c7a42dc0eec47c07cdb1a2ea03a42fed31d056b599fe105d3d"
+  },
+  {
+    "path": "/styles.css",
+    "sha256": "bc287059930f7a8b8e18dfe2a1e28f37b2b9841112a382fc3f16ee4aa9e870fb"
+  },
+  {
+    "path": "/runtime-config.js",
+    "sha256": "92fa906bf87e725d8dc958543317be3f6f4dfaa3e86666df94074510f2e6a7bd"
+  },
+  {
+    "path": "/apple-touch-icon.png",
+    "sha256": "22c1ca1039d0da7ee0f3b9a2b04bc06e2bdaf95ff0d41dd4b86580b5e7143fd8"
+  },
+  {
+    "path": "/app.js",
+    "sha256": "4931018b5fb18f8236381e2cf9a5b510c74f199a83869088711bbfc8f9e5c1de"
+  },
+  {
+    "path": "/",
+    "sha256": "d3dac9345bd10f83fd385d538aa32e6132e710bce7a244da1bc856fc3af8ed66"
+  }
+]

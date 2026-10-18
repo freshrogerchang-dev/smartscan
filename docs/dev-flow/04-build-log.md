@@ -114,3 +114,7 @@ Node >=22，在 repo 根目錄執行 `npm run dev`，開啟 http://127.0.0.1:417
 - 本機 library 的刪除採產品確認提示，本輪未以瀏覽器刪除持久資料。iPhone/HEIC、配額上限、跨分頁競爭及完整原生 PDF viewer 搜尋／選取驗收未完成。瀏覽器 console warn/error 觀察為空；不是完整 network trace。
 - 新截圖：s4-mvp-crop.jpg、s4-mvp-library.jpg。本輪只達到 06 的 MVP 1–5 實作與 bounded desktop smoke，V1.1/V1.2/V2 保留未完成。
 - 發布完成：Wrangler 4.151.1 dry-run 後部署 0.4，version ce4d449d-8514-43d6-b859-aea74ed0d181；verify-deployment.mjs 遞迴核對16個公開檔案（含字型／授權），全數 HTTP 200 且 bytes 符合本機。正式站新增文件 tab、空文件庫及本機保存提示可見；390px bodyWidth=390，console error/warn 空陣列，截圖 s4-mvp-deployed.jpg。驗證沒有將本機 IndexedDB 測試資料上傳到伺服器。
+
+
+## 最新接續：草稿恢復與完整備份
+本輪已實作與測試，正式站尚未更新。以 [RECOVERY-BACKUP.md](../RECOVERY-BACKUP.md) 為本輪功能、驗證與部署界線的完整紀錄；舊紀錄保留歷史用途。

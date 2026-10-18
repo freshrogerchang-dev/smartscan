@@ -42,9 +42,10 @@ $("translate-local").onclick=async()=>{
   try{
     $("translation-message").textContent="準備本機翻譯模型…首次可能需要下載，請保持連網。";
     // create directly from the click to retain user activation for first-use model downloads.
-    translator=await window.Translator.create({...options,signal,monitor(m){m.addEventListener("downloadprogress",event=>{$("translation-message").textContent=`下載翻譯模型 ${Math.round(event.loaded*100)}%`;});}});
+    translator=await window.Translator.create({...options,signal,monitor(m){m.addEventListener("downloadprogress",event=>{$("translation-message").textContent=`下載翻譯模型 ${Math.round(event.loaded*100)}%`;setWorkProgress(event.loaded*100,"下載翻譯模型","這是語言模型下載進度，尚未開始翻譯。");});}});
     const translatedPages=[];
-    for(const part of text.split(PAGE_SEPARATOR))translatedPages.push(part.trim()?await translator.translate(part,{signal}):"");
+    const sourceParts=text.split(PAGE_SEPARATOR);
+    for(const part of sourceParts){setWorkProgress(translatedPages.length/sourceParts.length*100,"翻譯各頁文字",`第 ${translatedPages.length+1} / ${sourceParts.length} 頁`);translatedPages.push(part.trim()?await translator.translate(part,{signal}):"");setWorkProgress(translatedPages.length/sourceParts.length*100,"翻譯各頁文字",`${translatedPages.length} / ${sourceParts.length} 頁已處理`);}
     const translated=translatedPages.join(PAGE_SEPARATOR);
     $("translation-original").value=text;$("translation-result").value=translated;markDirty();
     $("translation-message").textContent="本機翻譯完成。原文保留於左側，請核對譯文；儲存文件可保留此對照。";
@@ -146,6 +147,7 @@ $("batch-start").onclick=async()=>{
       const item=document.createElement("li");$("batch-jobs").append(item);
       if(batchCancelled){item.textContent=`第 ${i+1} 頁 · 已取消`;report.pages.push({page:i+1,status:"cancelled"});continue;}
       item.textContent=`第 ${i+1} 頁 · 處理中`;
+      setWorkProgress(i/pages.length*100,"批次圖片壓縮",`第 ${i+1} / ${pages.length} 頁`);
       try{
         const canvas=compressCanvas(await pageCanvas(pages[i])),blob=await new Promise((resolve,reject)=>canvas.toBlob(result=>result?resolve(result):reject(Error("圖片編碼失敗")),"image/jpeg",exportProfile().quality));
         const name=`page-${String(i+1).padStart(2,"0")}.jpg`;
@@ -155,9 +157,10 @@ $("batch-start").onclick=async()=>{
         item.textContent=`第 ${i+1} 頁 · 完成 · ${Math.round(blob.size/1024)} KB`;
         report.pages.push({page:i+1,status:"completed",name,width:canvas.width,height:canvas.height,inputBytes:pages[i].file.size,outputBytes:blob.size});
       }catch(error){item.textContent=`第 ${i+1} 頁 · 失敗：${error.message}`;report.pages.push({page:i+1,status:"failed",error:error.message});}
+      setWorkProgress((i+1)/pages.length*100,"批次圖片壓縮",item.textContent);
       await new Promise(resolve=>setTimeout(resolve,0));
     }
-    if(succeeded){entries.push({name:"manifest.json",data:new TextEncoder().encode(JSON.stringify(report,null,2))});batchBlob=productivity.zip(entries);}
+    if(succeeded){setWorkProgress(null,"整理 ZIP 備份",`已完成 ${succeeded} 頁，正在打包。`);entries.push({name:"manifest.json",data:new TextEncoder().encode(JSON.stringify(report,null,2))});batchBlob=productivity.zip(entries);}
     $("batch-message").textContent=`完成 ${succeeded}/${pages.length} 頁；原檔 ${(inputBytes/1024).toFixed(0)} KB → JPEG ${(outputBytes/1024).toFixed(0)} KB（ZIP 另含文字及紀錄）。失敗／取消頁未包含，可重新執行。`;
     msg(batchCancelled?"批次已停止，可下載已完成頁面":"批次完成，請檢查每頁結果");
   }catch(error){$("batch-message").textContent="批次失敗："+error.message;}

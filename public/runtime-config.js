@@ -1,5 +1,6 @@
 "use strict";
 window.SMARTSCAN_CONFIG = Object.freeze({
+  googleClientId: "256907959574-vk9ignr87pin9v54qu50pl896tq5tg8q.apps.googleusercontent.com",
   tesseractVersion: "5.1.1",
   workerPath: "https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/worker.min.js",
   corePath: "https://cdn.jsdelivr.net/npm/tesseract.js-core@5.1.1",
