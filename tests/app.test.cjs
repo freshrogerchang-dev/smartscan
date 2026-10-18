@@ -19,6 +19,7 @@ function app() {
   const sandbox = { TextEncoder, document: { body:new Element(), getElementById:id=>elements[id], createElement:()=>new Element(), querySelectorAll:selector=>selector==='button,input,select,textarea'?Object.values(elements):[] }, URL: { createObjectURL: f=>f.name, revokeObjectURL:u=>revoked.push(u) }, alert(){}, navigator:{}, Blob, setTimeout, Image:class { constructor(){this.naturalWidth=800;this.naturalHeight=400} set src(v){queueMicrotask(()=>this.onload())} }, window: { jspdf: { jsPDF: class { addPage(){} addImage(...a){pdfImages.push(a)} save(){} } } } };
   const ctx=vm.createContext(sandbox);
   vm.runInContext(fs.readFileSync('public/runtime-config.js','utf8'),ctx);
+  vm.runInContext(fs.readFileSync('public/card-tools.js','utf8'),ctx);
   vm.runInContext(fs.readFileSync('public/app.js','utf8'),ctx);
   return { elements, revoked, pdfImages, drawCalls, sandbox, run:s=>vm.runInContext(s,ctx), add:n=>vm.runInContext(`add(${JSON.stringify(Array.from({length:n},(_,i)=>({name:`image${i}`,type:'image/png',size:100})))});`,ctx) };
 }

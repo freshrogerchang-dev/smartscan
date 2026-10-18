@@ -211,11 +211,9 @@ $("ocr").onclick = async () => {
   }
 };
 function parseCard(text) {
-  const lines = text.split(/\r?\n/).map(x => x.trim()).filter(Boolean);
-  $("email").value = text.match(/[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}/)?.[0] || "";
-  $("phone").value = lines.map(line => line.match(/(?:\+?\d[\d() -]{7,}\d)/)?.[0]).find(Boolean) || "";
-  $("name").value = lines.find(line => !line.includes("@") && !/\d{4}/.test(line)) || "";
-  $("company").value = "";
+  const fields=window.SmartScanCardTools.parse(text);
+  for(const id of ["name","company","phone","email"])$(id).value=fields[id];
+  if($("card-field-warning"))$("card-field-warning").textContent=fields.notice;
   updateCardPreview();
 }
 $("copy").onclick = async () => {
