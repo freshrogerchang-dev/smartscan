@@ -1,0 +1,4 @@
+/vendor/pdfjs/pdf.mjs
+  Content-Type: text/javascript
+/vendor/pdfjs/pdf.worker.mjs
+  Content-Type: text/javascript

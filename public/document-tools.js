@@ -27,7 +27,7 @@
   }
   const searchText = text => String(text || "").normalize("NFKC").toLocaleLowerCase().replace(/\s+/g," ").trim();
   function matches(record, query, category = "all") {
-    const haystack = searchText(`${record.name}\n${categories[record.category] || ""}\n${record.text}`);
+    const haystack = searchText(`${record.name}\n${categories[record.category] || ""}\n${record.text}\n${(record.tags||[]).join(" ")}`);
     return (category === "all" || record.category === category) && searchText(query).split(" ").every(word => haystack.includes(word) || (/[\u2e80-\u9fff\u3040-\u30ff]/.test(word) && haystack.replace(/\s/g,"").includes(word.replace(/\s/g,""))));
   }
   // Conservative connected light-region bounds. No perspective correction or assumed success.

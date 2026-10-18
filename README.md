@@ -66,3 +66,6 @@ OCR/core 固定 5.1.1，語言模型固定 tessdata_best commit；首載每語�
 - 掃描頁展開「批次處理與壓縮」，品質同時用於 PDF 與 JPEG ZIP，保留原圖與 OCR。逐頁列完成／失敗／取消，下載只含完成頁、已有文字與 manifest；可重新執行。不是既有 PDF 重壓縮，也不保證每個來源都更小。工作與 ZIP 留在記憶體，重新整理後不保留。
 
 本機翻譯能力來源：[Chrome 官方文件](https://developer.chrome.com/docs/ai/translator-api)、[Translation API 規範](https://webmachinelearning.github.io/translation-api/)。QR 產生器採 [Project Nayuki v1.8.0](https://github.com/nayuki/QR-Code-generator/releases/tag/v1.8.0)，隨站提供，完整 MIT 授權與雜湊在 public/vendor/。獨立解碼用 zxing-cpp 2.3.0，僅安裝於忽略的 artifacts/qa-python，不屬於網站 runtime。
+
+## 八項功能更新
+草稿恢復、拍攝品質提醒、完整備份還原、PDF 匯入與拆頁、OCR 原圖對照、像素遮蔽、重複文件提醒、收據報帳流程已實作。完整操作與限制見 [docs/EIGHT-FEATURES.md](docs/EIGHT-FEATURES.md)。

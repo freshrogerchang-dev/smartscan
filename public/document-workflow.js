@@ -7,6 +7,7 @@ function markDirty() { sessionDirty = true; }
 function resetDocument() {
   currentDocumentId = null; sessionDirty = false; categoryEdited = false;
   $("document-name").value = ""; $("document-category").value = "document";
+  if($("document-tags"))$("document-tags").value="";
   $("text").value = ""; $("searchable-pdf").checked = false;
   for(const id of ["name","company","phone","email"])$(id).value="";
   updateCardPreview();
@@ -16,7 +17,10 @@ function resetDocument() {
 function updateDocumentControls() { $("save-document").disabled = busy || !pages.length; }
 function suggestDocument(force = true) {
   const suggestion = tools.suggest($("text").value.split(PAGE_SEPARATOR).join("\n"), pages[0]?.file.name, $("mode").value);
-  if (force || !$("document-name").value.trim()) $("document-name").value = suggestion.name;
+  if (force || !$("document-name").value.trim()) {
+    try { $("document-name").value = typeof applyNaming==="function"?applyNaming(suggestion):suggestion.name; }
+    catch(error) { $("document-name").value=suggestion.name; if($("template-message"))$("template-message").textContent="範本無效，已使用預設檔名："+error.message; }
+  }
   if (force || !categoryEdited) $("document-category").value = suggestion.category;
 }
 function syncEditor() {
@@ -54,11 +58,11 @@ $("save-document").onclick = async () => {
     if (!$("document-name").value.trim()) suggestDocument(false);
     const id = currentDocumentId || crypto.randomUUID(), previous = currentDocumentId ? await documentLibrary.get(id) : null;
     const record = {
-      id, name: tools.safeName($("document-name").value), category: $("document-category").value,
+      id, name: tools.safeName($("document-name").value), tags:window.SmartScanPro?.tags($("document-tags")?.value)||[], category: $("document-category").value,
       text: $("text").value, createdAt: previous?.createdAt || Date.now(), updatedAt: Date.now(),
       language: $("language").value, mode: $("mode").value,
       contact: Object.fromEntries(["name","company","phone","email"].map(id=>[id,$(id).value])),
-      pages: pages.map(({ file, rotation, crop, text, words, ocrWidth, ocrHeight, ocrKey }) => ({ file, rotation, crop, text, words, ocrWidth, ocrHeight, ocrKey }))
+      pages: pages.map(({ file, rotation, crop, perspective, text, words, ocrWidth, ocrHeight, ocrKey }) => ({ file, rotation, crop, perspective, text, words, ocrWidth, ocrHeight, ocrKey }))
     };
     if(typeof productivitySnapshot === "function")Object.assign(record,productivitySnapshot());
     if(typeof advancedSnapshot === "function")record.advanced=advancedSnapshot();
@@ -81,7 +85,7 @@ async function renderLibrary() {
     $("library-message").textContent = records.length ? `${matches.length} / ${records.length} 份文件；搜尋檔名、分類與已儲存文字` : "還沒有文件。先掃描，再按「儲存到文件庫」。";
     for (const record of matches) {
       const item = document.createElement("article"); item.className = "library-item";
-      const badge = document.createElement("span"); badge.className = "library-category"; badge.textContent = tools.categories[record.category] || "文件";
+      const badge = document.createElement("span"); badge.className = "library-category"; badge.textContent = (tools.categories[record.category] || "文件")+((record.tags||[]).length?" · "+record.tags.join(" · "):"");
       const title = document.createElement("h2"); title.textContent = record.name;
       const hasText=record.text.split(PAGE_SEPARATOR).some(text=>text.trim());
       const detail = document.createElement("p"); detail.textContent = `${record.kind==="contact"?"聯絡人":record.pages.length+" 頁"} · ${new Date(record.updatedAt).toLocaleDateString()} · ${hasText ? "可搜尋文字" : "尚未辨識"}`;
@@ -111,6 +115,7 @@ async function openDocument(id) {
     pages.forEach(page => URL.revokeObjectURL(page.url)); pages = restored;
     currentDocumentId = record.id; sessionDirty = false; categoryEdited = true;
     $("document-name").value = record.name; $("document-category").value = record.category;
+    $("document-tags").value=(record.tags||[]).join("、");
     $("language").value = record.language; $("mode").value = record.mode;
     $("text").value = record.text;
     for(const id of ["name","company","phone","email"])$(id).value=record.contact?.[id] || "";
@@ -135,10 +140,8 @@ async function loadPdfFont() {
   })().catch(error=>{fontPromise=null;throw error;});
   return fontPromise;
 }
-$("pdf").onclick = async () => {
-  if (busy || !pages.length) return;
-  lock(true);
-  try {
+async function buildPdfDocument() {
+    if(!pages.length)throw Error("請先匯入圖片，或從文件庫開啟文件");
     if (!window.jspdf) throw Error("PDF 程式尚未下載，請連網後重試");
     const searchable = $("searchable-pdf").checked;
     if (searchable) {
@@ -149,19 +152,21 @@ $("pdf").onclick = async () => {
     const pdf = new window.jspdf.jsPDF({unit:"mm",format:"a4",putOnlyUsedFonts:true});
     if (searchable) {
       msg("準備搜尋文字層…首次需載入約 12 MB 字型");
+      setWorkProgress(null,"準備 PDF 字型","首次載入字型約 12 MB，下載完成後開始建立頁面。");
       pdf.addFileToVFS("SmartScanCJK.ttf", await loadPdfFont());
       pdf.addFont("SmartScanCJK.ttf","SmartScanCJK","normal");
       pdf.setFont("SmartScanCJK","normal");
     }
     for(let i=0;i<pages.length;i++) {
       msg(`建立 PDF ${i+1}/${pages.length}`); if(i)pdf.addPage();
+      setWorkProgress(i/pages.length*100,"建立 PDF 頁面",`第 ${i+1} / ${pages.length} 頁`);
       const page=pages[i],canvas=await pageCanvas(page),fit=Math.min(210/canvas.width,297/canvas.height);
       const width=canvas.width*fit,height=canvas.height*fit,x=(210-width)/2,y=(297-height)/2;
       const image=typeof compressCanvas === "function"?compressCanvas(canvas):canvas;
       const quality=typeof exportProfile === "function"?exportProfile().quality:.85;
       pdf.addImage(image.toDataURL("image/jpeg",quality),"JPEG",x,y,width,height);
       if(searchable) {
-        const validWords=page.words?.length && !/[\u2e80-\u9fff\u3040-\u30ff]/.test(page.text) && page.ocrKey===JSON.stringify([page.rotation,page.crop || null]) && page.ocrWidth===canvas.width && page.ocrHeight===canvas.height;
+        const validWords=page.words?.length && !/[\u2e80-\u9fff\u3040-\u30ff]/.test(page.text) && page.ocrKey===JSON.stringify([page.rotation,page.crop || null,page.perspective || null]) && page.ocrWidth===canvas.width && page.ocrHeight===canvas.height;
         if(validWords) {
           for(const word of page.words) {
             if(!word.text?.trim() || !word.bbox)continue;
@@ -175,8 +180,15 @@ $("pdf").onclick = async () => {
           lines=pdf.splitTextToSize(normalizedText,190);pdf.text(lines,10,12,{renderingMode:"invisible",lineHeightFactor:1.1});
         }
       }
+      setWorkProgress((i+1)/pages.length*100,"建立 PDF 頁面",`${i+1} / ${pages.length} 頁已整理`);
     }
-    pdf.save(tools.safeName($("document-name").value.replace(/\.pdf$/i,""))+".pdf");
+    return {pdf,name:tools.safeName($("document-name").value.replace(/\.pdf$/i,""))+".pdf",searchable};
+}
+$("pdf").onclick = async () => {
+  if (busy || !pages.length) return;
+  lock(true);
+  try {
+    const {pdf,name,searchable}=await buildPdfDocument();pdf.save(name);
     msg(searchable ? "已建立可搜尋 PDF；搜尋文字取決於辨識與核對結果" : "已建立圖片 PDF");
   } catch(error) {msg("PDF 失敗："+error.message);}
   finally {lock(false);updateDocumentControls();}
@@ -220,7 +232,7 @@ $("crop-reset").onclick=()=>{cropBounds={x:0,y:0,width:1,height:1};writeCropFiel
 $("crop-close").onclick=()=>$("crop-dialog").close();
 $("crop-apply").onclick=()=>{
   try {
-    const bounds=readCropFields();cropPage.crop=bounds.width>=.999&&bounds.height>=.999?null:bounds;
+    const bounds=readCropFields();cropPage.perspective=null;cropPage.crop=bounds.width>=.999&&bounds.height>=.999?null:bounds;
     invalidatePage(cropPage);$("crop-dialog").close();render();msg("已套用裁切；原圖保留，可還原。請重新辨識這一頁文字。");
   }catch(error){$("crop-message").textContent=error.message;}
 };

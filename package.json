@@ -1,11 +1,13 @@
 {
   "name": "smartscan-personal",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "private": true,
   "scripts": {
     "dev": "node scripts/serve.mjs",
     "test": "node --test tests/*.test.cjs",
-    "check": "node --check public/advanced.js && node --check public/advanced-tools.js && node --check public/productivity.js && node --check public/productivity-tools.js && node --check public/app.js && node --check public/document-tools.js && node --check public/library.js && node --check public/document-workflow.js && node --check public/runtime-config.js && node --check public/sw.js && node --check scripts/serve.mjs"
+    "check": "node --check public/advanced.js && node --check public/advanced-tools.js && node --check public/productivity.js && node --check public/productivity-tools.js && node --check public/app.js && node --check public/document-tools.js && node --check public/library.js && node --check public/document-workflow.js && node --check public/runtime-config.js && node --check public/sw.js && node --check scripts/serve.mjs && node --check public/recovery.js && node --check public/recovery-tools.js && node --check public/eight.js && node --check public/eight-tools.js"
   },
-  "engines": { "node": ">=22" }
+  "engines": {
+    "node": ">=22"
+  }
 }

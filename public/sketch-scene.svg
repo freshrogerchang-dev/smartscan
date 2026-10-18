@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 250" fill="none">
+  <style>.leaf{transform-origin:65px 220px;animation:sway 5s ease-in-out infinite}.star{animation:glow 4s ease-in-out infinite}.paper{animation:bob 6s ease-in-out infinite}@keyframes sway{50%{transform:rotate(5deg)}}@keyframes glow{50%{opacity:.4}}@keyframes bob{50%{transform:translateY(-4px) rotate(1deg)}}@media(prefers-reduced-motion:reduce){*{animation:none!important}}</style>
+  <path d="M33 64C48 21 126 12 176 35s66 84 43 132-72 75-123 58S5 144 33 64Z" fill="#e2e6d5"/>
+  <path d="M43 80C52 41 124 29 166 44" stroke="#f9f6ec" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 8"/>
+  <g class="paper" stroke="#65705d" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round">
+    <path d="m68 62 98-12 20 143-102 12Z" fill="#d1d8c4"/>
+    <path d="m57 55 102-6 9 144-103 9Z" fill="#f6edd8"/>
+    <path d="m72 39 101 8-7 146-104-7Z" fill="#fffdf6"/>
+    <path d="m87 72 65 4m-66 12 52 4m-54 13 64 4m-65 13 42 3m-43 14 61 5" stroke="#a9b09a"/>
+    <path d="m84 60 25 2" stroke="#d3b678" stroke-width="5"/>
+    <rect x="130" y="149" width="23" height="25" rx="3" transform="rotate(5 130 149)" stroke="#b87b65"/>
+    <text x="133" y="167" transform="rotate(5 133 167)" fill="#b87b65" stroke="none" font-family="serif" font-size="16">記</text>
+    <path d="m136 30 3 34 16 2-3-35Z" fill="#d0b680" fill-opacity=".6" stroke="none"/>
+  </g>
+  <g class="leaf" stroke="#77876d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M62 221c1-24-2-46-15-67m15 47c11-14 18-27 17-42"/>
+    <path d="M56 176c-21-1-22-11-24-22 13 0 21 8 24 22Zm5 25c-18 1-24-8-27-17 13-1 23 5 27 17Zm8-15c-2-18 7-26 17-29 2 15-4 24-17 29Z" fill="#b8c5a6"/>
+  </g>
+  <g stroke="#65705d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m176 130 24-44 9 5-23 44-11 8Z" fill="#d7ba76"/><path d="m200 86 4-7c2-3 11 2 9 5l-4 7" fill="#c68d79"/><path d="m175 143 3-10 8 2Z" fill="#f4e8d2"/><path d="m175 143 5-3"/>
+    <path d="M147 211c-2-12-2-20 4-26l1-17 12 9c6-2 13-2 20 1l12-9 1 20c9 11 10 29 0 36-16 9-41 3-50-14Z" fill="#f9f6ed"/>
+    <path d="m157 194 4 1m18 0 4-1m-13 6-1 3 4 1m-19-5-8-1m36 1 8-2"/>
+    <path d="M156 207c3 10 12 13 22 12" stroke="#d4c9b4"/>
+    <path d="M191 219c17 2 24-9 17-13-5-3-9 2-7 6"/>
+  </g>
+  <g class="star" stroke="#b69b60" stroke-width="1.8" stroke-linecap="round"><path d="m199 49 1 13m-7-6 13-1M37 105l1 10m-6-5 10-1"/><path d="m214 159 3 6-6 3-3-6Z"/></g>
+  <path d="M87 228c22 5 41 6 56 4" stroke="#c2c7b1" stroke-width="2" stroke-linecap="round"/>
+</svg>

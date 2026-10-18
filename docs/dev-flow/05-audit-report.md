@@ -61,3 +61,11 @@ Tesseract.js：Apache-2.0；jsPDF：MIT，來源見 S1。此處不是完整 SBOM
 3. 逐一測中英日 OCR，核對結果與錯誤後重試；檢查 console / network。
 4. 名片人工填入虛構資料，匯入 vCard，確認姓名、公司、電話及 Email。
 5. 以 HTTPS 測 iPhone 加主畫面、相機、下載／分享、旋轉與離線 shell；不宣稱完整離線 OCR。
+
+
+## 最新接續：草稿恢復與完整備份
+本輪已實作與測試，正式站尚未更新。以 [RECOVERY-BACKUP.md](../RECOVERY-BACKUP.md) 為本輪功能、驗證與部署界線的完整紀錄；舊紀錄保留歷史用途。
+
+
+## 最新接續：八項功能
+已依序完成八項功能並驗證。實作、使用入口、64 個子測試與實際瀏覽器證據、部署界線，見 [EIGHT-FEATURES.md](../EIGHT-FEATURES.md)。以本附錄為最新狀態，舊內容保留歷史紀錄。

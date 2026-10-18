@@ -3,7 +3,9 @@ const $ = id => document.getElementById(id);
 const config = window.SMARTSCAN_CONFIG;
 let pages = [], busy = false, lockedControls = new Map();
 const msg = text => $("status").textContent = text;
+function setWorkProgress(value,stage,detail="") { window.SmartScanProgress?.update(value,stage,detail); }
 function lock(value) {
+  const previousBusy=busy;
   busy = value;
   const indicator = $("busy-indicator");
   if (indicator) indicator.classList.toggle("is-busy", value);
@@ -18,6 +20,8 @@ function lock(value) {
     lockedControls.clear();
   }
   $("pdf").disabled = $("ocr").disabled = value || !pages.length;
+  if(value&&!previousBusy)window.SmartScanProgress?.start();
+  if(!value&&previousBusy)window.SmartScanProgress?.end($("status").textContent);
 }
 function render() {
   const el = $("pages");
@@ -25,7 +29,7 @@ function render() {
   pages.forEach((page, i) => {
     const fig = document.createElement("figure"), image = document.createElement("img"), cap = document.createElement("figcaption");
     image.src = page.url;
-    if(page.crop && typeof updatePageThumbnail === "function")updatePageThumbnail(image,page);
+    if((page.crop||page.perspective) && typeof updatePageThumbnail === "function")updatePageThumbnail(image,page);
     image.style.transform = `rotate(${page.rotation}deg)`;
     image.alt = `第 ${i + 1} 頁預覽`;
     cap.textContent = `第 ${i + 1} 頁`;
@@ -56,6 +60,7 @@ function render() {
       const cropButton=document.createElement("button");cropButton.textContent=page.crop?"調整裁切":"自動裁切";
       cropButton.setAttribute("aria-label",`第 ${i+1} 頁裁切`);cropButton.onclick=()=>openCrop(page);fig.append(cropButton);
     }
+    if(typeof openPerspective==="function"){const button=document.createElement("button");button.textContent="四角校正";button.setAttribute("aria-label",`第 ${i+1} 頁四角校正`);button.onclick=()=>openPerspective(page);fig.append(button);}
     el.append(fig);
   });
   $("pdf").disabled = $("ocr").disabled = busy || !pages.length;
@@ -77,6 +82,8 @@ async function add(files) {
   catch(error){msg(error.message);return;}
   lock(true);
   const failures = [];
+  let processed=0;
+  setWorkProgress(0,"讀取圖片",`0 / ${files.length} 張`);
   try {
     for (const file of files) {
       let url;
@@ -88,12 +95,14 @@ async function add(files) {
         url = URL.createObjectURL(file);
         msg(`檢查圖片：${file.name}`);
         const image = await load(url);
-        if (!image.naturalWidth || !image.naturalHeight || image.naturalWidth * image.naturalHeight > config.maxImagePixels) throw Error("圖片尺寸無效或超過 32 百萬像素，請先縮小圖片");
+        if (!(image.naturalWidth||image.width) || !(image.naturalHeight||image.height) || (image.naturalWidth||image.width) * (image.naturalHeight||image.height) > config.maxImagePixels) throw Error("圖片尺寸無效或超過 32 百萬像素，請先縮小圖片");
         pages.push({ file, url, rotation: 0, crop: null, text: "", words: [] });
         if(typeof markDirty === "function")markDirty();
       } catch (error) {
         if (url) URL.revokeObjectURL(url);
         failures.push(`${file.name}：${error.message}`);
+      } finally {
+        processed++;setWorkProgress(processed/files.length*100,"讀取圖片",`${processed} / ${files.length} 張已檢查`);
       }
     }
   } finally {
@@ -116,9 +125,11 @@ $("clear").onclick = () => {
   render();
 };
 async function pageCanvas(page) {
-  const image = await load(page.url), canvas = document.createElement("canvas");
+  let image = await load(page.url);
+  if(page.perspective&&typeof perspectiveCanvas==="function")image=perspectiveCanvas(image,page.perspective);
+  const canvas = document.createElement("canvas");
   const crop=page.crop || {x:0,y:0,width:1,height:1};
-  const sx=crop.x*image.naturalWidth,sy=crop.y*image.naturalHeight,sw=crop.width*image.naturalWidth,sh=crop.height*image.naturalHeight;
+  const sx=crop.x*(image.naturalWidth||image.width),sy=crop.y*(image.naturalHeight||image.height),sw=crop.width*(image.naturalWidth||image.width),sh=crop.height*(image.naturalHeight||image.height);
   const scale = Math.min(1, 2400 / Math.max(sw, sh));
   const width = Math.max(1, Math.round(sw * scale)), height = Math.max(1, Math.round(sh * scale));
   const sideways = page.rotation % 180 !== 0;
@@ -154,19 +165,31 @@ $("pdf").onclick = async () => {
 $("ocr").onclick = async () => {
   if (busy || !pages.length) return;
   let worker;
+  let recognizingPage=-1;
   lock(true);
   try {
     if (!window.Tesseract) throw Error("OCR 程式尚未下載，請連網後重試");
     msg("下載／初始化 OCR…首次語言模型約 13–15 MB／語言，請保持連網");
     worker = await window.Tesseract.createWorker($("language").value, 1, {
       workerPath: config.workerPath, corePath: config.corePath,
-      langPath: config.langPath, gzip: config.gzip, cachePath: config.cachePath
+      langPath: config.langPath, gzip: config.gzip, cachePath: config.cachePath,
+      logger: data=>{
+        if(data.status==="recognizing text"&&recognizingPage>=0){
+          const fraction=typeof data.progress==="number"&&Number.isFinite(data.progress)?Math.max(0,Math.min(1,data.progress)):0;
+          setWorkProgress((recognizingPage+fraction)/pages.length*100,"辨識所有頁面",`第 ${recognizingPage+1} / ${pages.length} 頁 · 辨識中`);
+        }else if(recognizingPage<0){
+          const downloading=data.status==="loading language traineddata";
+          setWorkProgress(downloading&&typeof data.progress==="number"?data.progress*100:null,downloading?"下載語言資料":"準備文字辨識",downloading?"目前語言資料項目的下載進度":"正在初始化辨識引擎，這個階段無法預估百分比。");
+        }
+      }
     });
     const results = [];
     for (let i = 0; i < pages.length; i++) {
       msg(`辨識 ${i + 1}/${pages.length}`);
+      recognizingPage=i;setWorkProgress(i/pages.length*100,"辨識所有頁面",`第 ${i+1} / ${pages.length} 頁`);
       const canvas=await pageCanvas(pages[i]),data=(await worker.recognize(canvas)).data;
-      results.push({text:data.text,words:(data.words || []).map(word=>({text:word.text,bbox:word.bbox})),ocrWidth:canvas.width,ocrHeight:canvas.height,ocrKey:JSON.stringify([pages[i].rotation,pages[i].crop || null])});
+      results.push({text:data.text,words:(data.words || []).map(word=>({text:word.text,bbox:word.bbox})),ocrWidth:canvas.width,ocrHeight:canvas.height,ocrKey:JSON.stringify([pages[i].rotation,pages[i].crop || null,pages[i].perspective || null])});
+      setWorkProgress((i+1)/pages.length*100,"辨識所有頁面",`第 ${i+1} / ${pages.length} 頁已辨識`);
     }
     results.forEach((result,i)=>Object.assign(pages[i],result));
     $("text").value = results.map(result=>result.text).join("\n\n--- 下一頁 ---\n\n");
