@@ -129,3 +129,18 @@ test('partial OCR failure preserves previous page text rather than publishing a 
  a.sandbox.window.Tesseract={createWorker:async()=>({recognize:async()=>{if(++n===2)throw Error('second failed');return {data:{text:'new first'}}},terminate:async()=>{}})};
  await a.elements.ocr.onclick();assert.equal(a.run('pages[0].text'),'old first');assert.equal(a.elements.text.value,'old editor');assert.match(a.elements.status.textContent,/失敗/);
 });
+
+test('camera import auto-crops while album import preserves full image, checkbox opts out',async()=>{
+ const a=app();let calls=0;a.sandbox.automaticCameraCrop=()=>{calls++;return{x:.1,y:.1,width:.8,height:.8}};
+ a.elements['camera-auto-crop']={checked:true};const file={name:'camera.png',type:'image/png',size:100};
+ await a.elements.camera.onchange({target:{files:[file],value:'camera'}});
+ assert.equal(a.run('pages[0].crop.width'),.8);assert.equal(a.run('pages[0].file.name'),'camera.png');
+ await a.elements.upload.onchange({target:{files:[file],value:'album'}});assert.equal(a.run('pages[1].crop'),null);
+ a.elements['camera-auto-crop'].checked=false;await a.elements.camera.onchange({target:{files:[file],value:'camera'}});
+ assert.equal(a.run('pages[2].crop'),null);assert.equal(calls,1);
+});
+test('failed camera edge detection keeps the original imported image and releases controls',async()=>{
+ const a=app();a.sandbox.automaticCameraCrop=()=>{throw Error('detector failed')};
+ await a.run('add([{name:"safe.png",type:"image/png",size:100}],{autoCrop:true})');
+ assert.equal(a.run('pages.length'),1);assert.equal(a.run('pages[0].crop'),null);assert.equal(a.run('pages[0].autoCropState'),'uncertain');assert.equal(a.elements.clear.disabled,false);
+});

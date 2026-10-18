@@ -62,7 +62,20 @@
     const x=Math.max(0,best.left-pad)/width,y=Math.max(0,best.top-pad)/height;
     return {x,y,width:Math.min(1,(best.right+pad+1)/width)-x,height:Math.min(1,(best.bottom+pad+1)/height)-y};
   }
-  const api = { categories, classify, safeName, suggest, searchText, matches, detectBounds, pdfText };
+  // Auto-apply only when a fully visible light sheet has clear contrast to its background.
+  function autoCropBounds(image) {
+    const bounds=detectBounds(image);if(!bounds)return null;
+    const {data,width,height}=image;
+    if(bounds.x<.01||bounds.y<.01||bounds.x+bounds.width>.99||bounds.y+bounds.height>.99||bounds.width*bounds.height<.2)return null;
+    const l=(x,y)=>{const i=(y*width+x)*4;return .2126*data[i]+.7152*data[i+1]+.0722*data[i+2];};
+    const border=[];for(let x=0;x<width;x++){border.push(l(x,0));border.push(l(x,height-1));}for(let y=0;y<height;y++){border.push(l(0,y));border.push(l(width-1,y));}
+    border.sort((a,b)=>a-b);const background=border[Math.floor(border.length/2)],inside=[];
+    for(let y=Math.ceil(bounds.y*height);y<Math.floor((bounds.y+bounds.height)*height);y++)for(let x=Math.ceil(bounds.x*width);x<Math.floor((bounds.x+bounds.width)*width);x++)inside.push(l(x,y));
+    if(!inside.length)return null;inside.sort((a,b)=>a-b);
+    if(inside[Math.floor(inside.length*.75)]-background<30||inside.filter(v=>v>=Math.max(170,background+25)).length/inside.length<.65)return null;
+    return bounds;
+  }
+  const api = { categories, classify, safeName, suggest, searchText, matches, detectBounds, autoCropBounds, pdfText };
   if(typeof module !== "undefined" && module.exports)module.exports=api;
   else root.SmartScanTools=api;
 })(typeof window !== "undefined" ? window : globalThis);

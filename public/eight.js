@@ -18,7 +18,7 @@
   tell('quality-message',results.length?`已檢查 ${results.length} 頁；提醒不等於 OCR 品質保證`:'請先匯入圖片');
  }
  $('quality-check').onclick=()=>checkQuality().catch(e=>tell('quality-message',e.message));
- const addWithQuality=add;add=async function(files){await addWithQuality(files);if(!busy)await checkQuality().catch(e=>tell('quality-message',e.message));};
+ const addWithQuality=add;add=async function(files,options){await addWithQuality(files,options);if(!busy)await checkQuality().catch(e=>tell('quality-message',e.message));};
  // Backup and recovery (#1/#3) already wrap the editor and library. Keep new fields in that snapshot too.
  let pdfTask=null,pdfCancelled=false;
  $('pdf-import-cancel').onclick=()=>{pdfCancelled=true;pdfTask?.destroy();};
@@ -100,12 +100,12 @@
   }catch(e){tell('redact-message','未完成遮蔽：'+e.message);}finally{lock(false);}
  };
  // Exact-image duplicate warnings: no name-only or visual-similarity claims.
- const originalAdd=add;add=async function(files){
+ const originalAdd=add;add=async function(files,options){
   if(busy)return;lock(true);tell('duplicate-message','正在檢查完全相同的原圖…');let accepted=[];
   try{const sizes=new Set(Array.from(files).filter(f=>f.size<=config.maxFileBytes).map(f=>f.size));const known=new Set();for(const p of pages)if(sizes.has(p.file.size))known.add(await T.fileHash(p.file));const stored=await documentLibrary.list().catch(()=>null);if(stored===null)tell('duplicate-message','文件庫暫時無法檢查，未完成跨文件重複檢查');if(stored)for(const r of stored)for(const p of r.pages)if(sizes.has(p.file.size))known.add(await T.fileHash(p.file));
    for(const file of files){if(file.size>config.maxFileBytes){accepted.push(file);continue;}const hash=await T.fileHash(file);if(known.has(hash)&&!confirm(`「${file.name}」的原圖與本次或文件庫圖片完全相同，仍要加入嗎？`))continue;known.add(hash);accepted.push(file);}
   }catch(e){tell('duplicate-message','重複檢查失敗，未匯入：'+e.message);return;}finally{lock(false);}
-  await originalAdd(accepted);if($('duplicate-message').textContent==='正在檢查完全相同的原圖…')tell('duplicate-message','完全相同原圖檢查完成（未檢查相似照片）');
+  await originalAdd(accepted,options);if($('duplicate-message').textContent==='正在檢查完全相同的原圖…')tell('duplicate-message','完全相同原圖檢查完成（未檢查相似照片）');
  };
  const priorSave=$('save-document').onclick;$('save-document').onclick=async()=>{
   if(busy)return;lock(true);

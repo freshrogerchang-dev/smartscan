@@ -212,6 +212,12 @@ function drawCrop() {
   ctx.fillRect(0,0,canvas.width,y);ctx.fillRect(0,y+h,canvas.width,canvas.height-y-h);ctx.fillRect(0,y,x,h);ctx.fillRect(x+w,y,canvas.width-x-w,h);
   ctx.strokeStyle="#b8e7aa";ctx.lineWidth=3;ctx.strokeRect(x,y,w,h);
 }
+function automaticCameraCrop(image) {
+  const canvas=document.createElement("canvas"),scale=Math.min(1,640/Math.max(image.naturalWidth,image.naturalHeight));
+  canvas.width=Math.max(1,Math.round(image.naturalWidth*scale));canvas.height=Math.max(1,Math.round(image.naturalHeight*scale));
+  const ctx=canvas.getContext("2d",{willReadFrequently:true});ctx.fillStyle="white";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(image,0,0,canvas.width,canvas.height);
+  return tools.autoCropBounds(ctx.getImageData(0,0,canvas.width,canvas.height));
+}
 function detectCrop() {
   const canvas=$("crop-preview"),ctx=canvas.getContext("2d");ctx.drawImage(cropImage,0,0,canvas.width,canvas.height);
   const candidate=tools.detectBounds(ctx.getImageData(0,0,canvas.width,canvas.height));
@@ -232,7 +238,7 @@ $("crop-reset").onclick=()=>{cropBounds={x:0,y:0,width:1,height:1};writeCropFiel
 $("crop-close").onclick=()=>$("crop-dialog").close();
 $("crop-apply").onclick=()=>{
   try {
-    const bounds=readCropFields();cropPage.perspective=null;cropPage.crop=bounds.width>=.999&&bounds.height>=.999?null:bounds;
+    const bounds=readCropFields();cropPage.autoCropState=null;cropPage.perspective=null;cropPage.crop=bounds.width>=.999&&bounds.height>=.999?null:bounds;
     invalidatePage(cropPage);$("crop-dialog").close();render();msg("已套用裁切；原圖保留，可還原。請重新辨識這一頁文字。");
   }catch(error){$("crop-message").textContent=error.message;}
 };
