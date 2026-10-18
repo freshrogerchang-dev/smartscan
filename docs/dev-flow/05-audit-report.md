@@ -73,3 +73,7 @@ Tesseract.js：Apache-2.0；jsPDF：MIT，來源見 S1。此處不是完整 SBOM
 
 ## 拍照後自動裁切接續
 已加入預設開啟的拍照後自動裁切，保留原檔、可還原，邊界不明時不套用；相簿不變。新增測試與 Chromium 相機輸入 fixture 驗證通過，尚未實機拍攝。完整說明見 ../EIGHT-FEATURES.md 的「拍照後自動裁切」。
+
+
+## 即時相機與名片欄位接續
+主相機入口改為 getUserMedia 即時預覽/邊界框，保留系統相機備援。移除取第一行作姓名的規則，品牌與不確定人名不混用。測試與限制見 [LIVE-CAMERA-CARD.md](../LIVE-CAMERA-CARD.md)。

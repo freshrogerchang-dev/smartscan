@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "browser": "154.0.8037.57",
+  "camera": "real getUserMedia with Chromium fake Y4M video device; not physical iPhone",
+  "checks": [
+    "continuous-frame-edge-detection",
+    "stable-guide",
+    "capture-auto-crops",
+    "card-mode-selected",
+    "tracks-stop-after-capture",
+    "tracks-stop-after-close",
+    "logo-not-name",
+    "company-and-person-separated",
+    "permission-denied-native-fallback"
+  ],
+  "pageErrors": []
+}
